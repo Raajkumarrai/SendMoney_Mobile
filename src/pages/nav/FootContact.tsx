@@ -1,24 +1,33 @@
 const FootContact = () => {
   return (
-    <div>
-      <div
-        className="flex flex-col gap-2 items-center justify-center p-4"
-        style={{
-          backgroundColor: "rgba(196, 255, 249, 1)",
-        }}
-      >
-        <h2 className="font-bold underline tracking-wide">Contact Us</h2>
-        <p className="text-justify">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-          exercitationem consequatur dolore omnis eum sunt aliquid dolores
-          reprehenderit rerum maxime incidunt, temporibus quasi ducimus ut
-          repellendus expedita tenetur vitae iste. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Repudiandae fugiat, rerum perferendis
-          odit unde sequi consequuntur at aspernatur quos illo laboriosam
-          voluptates cumque quas ea, laborum quae ipsa eum itaque!
-        </p>
+    <footer className="bg-[#b3ffff] text-black px-4 py-12">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-black">
+        <div>
+          <h3 className="font-semibold mb-4">Contact Us</h3>
+          <p className="text-sm ">
+            Get in touch with our support team for any assistance
+          </p>
+        </div>
+        <div>
+          <h3 className="font-semibold mb-4">Services</h3>
+          <ul className="space-y-2 text-sm">
+            <li>Money Transfer</li>
+            <li>Mobile Top-up</li>
+            <li>Bill Payments</li>
+            <li>Currency Exchange</li>
+          </ul>
+        </div>
+        <div>
+          <h3 className="font-semibold mb-4">Valuable Links</h3>
+          <ul className="space-y-2 text-sm ">
+            <li>About Us</li>
+            <li>Privacy Policy</li>
+            <li>Terms & Conditions</li>
+            <li>FAQ</li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

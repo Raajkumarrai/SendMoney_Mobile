@@ -1,9 +1,15 @@
+import FootContact from "../nav/FootContact";
+import TopBarNav from "../nav/TopBarNav";
+import TopNav from "../nav/TopNav";
+import HomePage from "./HomePage";
+
 const Home = () => {
   return (
     <div>
-      <div>
-        <h1>home In</h1>
-      </div>
+      <TopNav />
+      <TopBarNav />
+      <HomePage />
+      <FootContact />
     </div>
   );
 };
