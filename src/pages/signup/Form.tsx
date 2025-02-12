@@ -44,7 +44,7 @@ export default function Form() {
   };
 
   return (
-    <div className="max-w-[50%] m-auto">
+    <div className="w-full max-w-[800px] mx-auto">
       <div className="bg-white border-slate-600 border-2 rounded-xl p-6 relative my-5 mx-1 ">
         <button className="absolute right-4 top-4">
           <svg

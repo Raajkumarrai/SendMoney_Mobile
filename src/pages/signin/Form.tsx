@@ -20,7 +20,7 @@ export default function Form() {
   };
 
   return (
-    <div className="max-w-[50%] m-auto">
+    <div className="w-full max-w-[800px] mx-auto">
       <div className="bg-white p-6 relative m-5 border-slate-600 border-2 rounded-xl h-auto py-10 px-4">
         <button className="absolute right-4 top-4">
           <svg

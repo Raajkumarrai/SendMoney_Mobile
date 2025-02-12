@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Clock, CreditCard, ShieldCheck, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+  const sendMoney = () => {
+    navigate("/sendMoney");
+  };
   return (
     <div className="min-h-screen bg-[#E6FFFC]">
       <section className="px-4 py-12 text-center md:py-16">
@@ -17,6 +22,7 @@ export default function HomePage() {
             money transfer service.
           </p>
           <Button
+            onClick={sendMoney}
             className="bg-[#00B8A9] hover:bg-[#00A699] text-white"
             size="lg"
           >
