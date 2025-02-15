@@ -89,7 +89,10 @@ export default function HomePage() {
               <p className="text-gray-500">
                 Download Our App for The Fastest & Secure Way
               </p>
-              <Button className="bg-[#00B8A9] hover:bg-[#00A699] text-white">
+              <Button
+                className="bg-[#00B8A9] hover:bg-[#00A699] text-white"
+                onClick={sendMoney}
+              >
                 Send Money
               </Button>
             </div>

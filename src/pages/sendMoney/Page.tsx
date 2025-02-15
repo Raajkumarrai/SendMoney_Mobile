@@ -10,10 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React from "react";
+import React, { useState } from "react";
 import { SuccessModal } from "../success/SuccessModel";
 
 export default function Page() {
+  const [receiverMoney, setReceiverMoney] = useState("vip");
   const [showSuccess, setShowSuccess] = React.useState(false);
   const [successVariant, setSuccessVariant] = React.useState<
     "default" | "shop"
@@ -28,6 +29,7 @@ export default function Page() {
     setShowSuccess(true);
     console.log("Successfully submitted");
   };
+  console.log(receiverMoney);
 
   const mockTransactionData = {
     transferAmount: 400.0,
@@ -98,8 +100,10 @@ export default function Page() {
                 <div className="space-y-2">
                   <Label>How does your receiver want the money?</Label>
                   <Select
-                    defaultValue="vip"
-                    //  onValueChange={paymentOption}
+                    value={receiverMoney}
+                    onValueChange={(e: any) => {
+                      setReceiverMoney(e);
+                    }}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select option" />

@@ -8,7 +8,7 @@ const TopBarNav = () => {
     { path: "/home", label: "Home" },
     { path: "/about", label: "About Us" },
     { path: "/track", label: "Track Transfer" },
-    { path: "/send", label: "Send Money" },
+    { path: "/sendMoney", label: "Send Money" },
     { path: "/testimonials", label: "Testimonials" },
     { path: "/contact", label: "Contact" },
   ];
