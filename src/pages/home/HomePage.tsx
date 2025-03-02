@@ -78,8 +78,8 @@ export default function HomePage() {
       </section>
 
       {/* Fast Transfer Section */}
-      <section className="px-4 py-8 md:py-12 bg-white grid">
-        <div className="max-w-6xl mx-auto">
+      <section className="px-4 py-8 md:py-12 bg-white">
+        <div className="max-w-6xl mx-auto ">
           <h2 className="text-2xl font-bold text-center mb-8">Fast Transfer</h2>
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
@@ -95,6 +95,9 @@ export default function HomePage() {
               >
                 Send Money
               </Button>
+            </div>
+            <div className="h-[100px] w-[150px]">
+              <img src="../fast.png" alt="Looks image is missing." />
             </div>
           </div>
         </div>

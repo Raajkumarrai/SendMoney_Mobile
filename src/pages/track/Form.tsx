@@ -27,7 +27,7 @@ const Form = () => {
   return (
     <div>
       {" "}
-      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center">
+      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center justify-start min-h-screen">
         <div className="w-full max-w-md">
           <h1 className="text-2xl font-bold text-center mb-8">
             Enter Reference Number

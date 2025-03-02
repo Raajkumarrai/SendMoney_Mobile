@@ -88,7 +88,7 @@ export default function Form() {
       </section>
 
       {/* Story Section */}
-      <section className="py-12 md:py-20">
+      {/* <section className="py-12 md:py-20">
         <div className="container px-4 mx-auto">
           <div className="grid md:grid-cols-2  items-center">
             <div>
@@ -116,7 +116,7 @@ export default function Form() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
       <section className="py-12 md:py-20">
