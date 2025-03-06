@@ -31,6 +31,7 @@ export default function Form() {
     if (
       formData.firstName === "" ||
       formData.lastName === "" ||
+      formData.dob === "" ||
       formData.address === "" ||
       formData.password.length <= 8 ||
       formData.mobile.length != 10

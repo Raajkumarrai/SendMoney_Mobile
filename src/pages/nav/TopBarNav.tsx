@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 const TopBarNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation(); // Track current page
+
   const navLinks = [
     { path: "/home", label: "Home" },
     { path: "/about", label: "About Us" },
@@ -14,52 +17,77 @@ const TopBarNav = () => {
   ];
 
   return (
-    <div>
-      <div
-        className="flex justify-between h-20 w-full p-3 items-center"
-        style={{
-          backgroundColor: "rgba(196, 255, 249, 1)",
-        }}
-      >
-        <div className="h-[70px] w-[70px]">
-          <img src="../logo.png" alt="Send Money" className="h-full w-full" />
-        </div>
-
-        <div className=" p-4">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-3xl flex items-center gap-2"
-          >
-            {isOpen ? (
-              <>
-                <FaTimes className="text-2xl" />
-              </>
-            ) : (
-              <>
-                <FaBars className="text-2xl" />
-              </>
-            )}
-          </button>
-        </div>
+    <nav
+      className="flex justify-between items-center w-full p-4 h-20 sticky top-0 bg-opacity-80 z-50 shadow-sm"
+      style={{ backgroundColor: "rgba(196, 255, 249, 1)" }}
+    >
+      {/* Logo */}
+      <div className="h-[70px] w-[70px]">
+        <img src="../logo.png" alt="Send Money" className="h-full w-full" />
       </div>
 
-      {isOpen && (
-        <div className="relative">
-          <div className="bg-white p-4 absolute right-0 top-25 w-auto h-auto z-10">
-            <ul className="text-lg">
+      {/* Desktop Navigation */}
+      <ul className="hidden md:flex space-x-10 text-lg">
+        {navLinks.map(({ path, label }) => (
+          <li key={path}>
+            <Link
+              to={path}
+              className={`transition duration-300 px-3 py-1 rounded ${
+                location.pathname === path
+                  ? "text-blue-500 font-serif shadow-sm shadow-black"
+                  : "hover:text-blue-300"
+              }`}
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      {/* Mobile Menu Button with Rotation Animation */}
+      <motion.button
+        onClick={() => setIsOpen(!isOpen)}
+        className="md:hidden text-3xl"
+        animate={{ rotate: isOpen ? 180 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        {isOpen ? <FaTimes /> : <FaBars />}
+      </motion.button>
+
+      {/* Mobile Navigation with Smooth Animation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            transition={{ duration: 0.3 }}
+            className="fixed mt-0 top-0 right-0 w-full h-screen bg-white md:hidden flex flex-col items-center justify-center shadow-lg"
+          >
+            <ul className="text-lg text-center space-y-6">
               {navLinks.map(({ path, label }) => (
-                <li key={path} className="p-2 transition-all duration-200">
-                  <Link to={path} className="w-full h-full">
+                <li key={path} className="p-4 text-xl">
+                  <Link
+                    to={path}
+                    onClick={() => setIsOpen(false)}
+                    className={`transition duration-300 px-3 py-1 rounded ${
+                      location.pathname === path
+                        ? "text-blue-500 font-serif shadow-md shadow-black"
+                        : ""
+                    }`}
+                  >
                     {label}
                   </Link>
-                  <hr />
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
-      )}
-    </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* This span will be visible only on desktop */}
+      <span className="hidden md:inline-block"></span>
+    </nav>
   );
 };
 

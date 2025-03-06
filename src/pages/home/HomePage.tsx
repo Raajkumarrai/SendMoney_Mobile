@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const navigate = useNavigate();
+
   const sendMoney = () => {
     navigate("/sendMoney");
   };
+
   return (
     <div className="min-h-screen bg-[#E6FFFC]">
       <section className="px-4 py-12 text-center md:py-16">
@@ -21,9 +23,10 @@ export default function HomePage() {
             Send money to your loved ones securely and instantly with our global
             money transfer service.
           </p>
+
           <Button
             onClick={sendMoney}
-            className="bg-[#00B8A9] hover:bg-[#00A699] text-white"
+            className="bg-[#00B8A9] hover:bg-[#1b4e4a] text-white duration-300 transition"
             size="lg"
           >
             Send Money
@@ -89,8 +92,9 @@ export default function HomePage() {
               <p className="text-gray-500">
                 Download Our App for The Fastest & Secure Way
               </p>
+
               <Button
-                className="bg-[#00B8A9] hover:bg-[#00A699] text-white"
+                className="bg-[#00B8A9] hover:bg-[#1b4e4a] text-white transition duration-300"
                 onClick={sendMoney}
               >
                 Send Money
