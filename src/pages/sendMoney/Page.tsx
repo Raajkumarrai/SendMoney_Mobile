@@ -59,8 +59,10 @@ export default function Page() {
                       <SelectValue placeholder="Select country" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="us">United States</SelectItem>
+                      <SelectItem value="np">Nepal</SelectItem>
                       <SelectItem value="uk">United Kingdom</SelectItem>
+                      <SelectItem value="us">United States</SelectItem>
+                      <SelectItem value="id">India</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -72,8 +74,13 @@ export default function Page() {
                       <SelectValue placeholder="Select receiver country" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="us">United States</SelectItem>
+                      <SelectItem value="np">Nepal</SelectItem>
                       <SelectItem value="uk">United Kingdom</SelectItem>
+                      <SelectItem value="us">United States</SelectItem>
+                      <SelectItem value="id">India</SelectItem>
+                      <SelectItem value="ch">China</SelectItem>
+                      <SelectItem value="ko">Korea</SelectItem>
+                      <SelectItem value="rs">Russia</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -88,12 +95,16 @@ export default function Page() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="account-number">Enter Amount</Label>
+                  <Label htmlFor="amount">Enter Amount</Label>
                   <Input
-                    id="account-number"
+                    id="amount"
                     type="number"
                     placeholder="Enter Amount"
+                    min="0"
                     className="appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                    onChange={(e) => {
+                      if (Number(e.target.value) < 0) e.target.value = "0";
+                    }}
                   />
                 </div>
 
@@ -175,6 +186,8 @@ export default function Page() {
                             <SelectContent>
                               <SelectItem value="us">United States</SelectItem>
                               <SelectItem value="uk">United Kingdom</SelectItem>
+                              <SelectItem value="ca">Canada</SelectItem>
+                              <SelectItem value="co">Congo</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -186,6 +199,8 @@ export default function Page() {
                               <SelectValue placeholder="Select state" />
                             </SelectTrigger>
                             <SelectContent>
+                              <SelectItem value="ny">New York</SelectItem>
+                              <SelectItem value="ca">California</SelectItem>
                               <SelectItem value="ny">New York</SelectItem>
                               <SelectItem value="ca">California</SelectItem>
                             </SelectContent>

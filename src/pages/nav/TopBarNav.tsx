@@ -22,17 +22,17 @@ const TopBarNav = () => {
       style={{ backgroundColor: "rgba(196, 255, 249, 1)" }}
     >
       {/* Logo */}
-      <div className="h-[70px] w-[70px]">
+      <div className="h-[70px] w-[70px] rounded-full">
         <img src="../logo.png" alt="Send Money" className="h-full w-full" />
       </div>
 
       {/* Desktop Navigation */}
-      <ul className="hidden md:flex space-x-10 text-lg">
+      <ul className="hidden md:flex space-x-10 text-lg ">
         {navLinks.map(({ path, label }) => (
           <li key={path}>
             <Link
               to={path}
-              className={`transition duration-300 px-3 py-1 rounded ${
+              className={`transition duration-300 px-3 py-1 rounded shadow-lg shadow-blue-300 ${
                 location.pathname === path
                   ? "text-blue-500 font-serif shadow-sm shadow-black"
                   : "hover:text-blue-300"
@@ -62,15 +62,15 @@ const TopBarNav = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 100 }}
             transition={{ duration: 0.3 }}
-            className="fixed mt-0 top-0 right-0 w-full h-screen bg-white md:hidden flex flex-col items-center justify-center shadow-lg"
+            className="fixed pb-3 mt-20 top-0 right-0 w-3/4 h-auto bg-white md:hidden flex flex-col items-center justify-center shadow-lg rounded-2xl"
           >
             <ul className="text-lg text-center space-y-6">
               {navLinks.map(({ path, label }) => (
-                <li key={path} className="p-4 text-xl">
+                <li key={path} className="p-4 text-xl w-full">
                   <Link
                     to={path}
                     onClick={() => setIsOpen(false)}
-                    className={`transition duration-300 px-3 py-1 rounded ${
+                    className={`transition duration-300 px-3 py-1 rounded  ${
                       location.pathname === path
                         ? "text-blue-500 font-serif shadow-md shadow-black"
                         : ""
