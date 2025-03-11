@@ -46,7 +46,7 @@ export default function Form() {
 
   return (
     <div>
-      <main className="container min-h-screen mx-auto px-4 py-8">
+      <main className="container min-h-screen mx-auto px-7 py-8 bg-[#E6FFFC]">
         <h1 className="text-3xl font-bold text-center mb-10">
           Client Testimonials
         </h1>

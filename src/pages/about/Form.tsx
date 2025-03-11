@@ -4,9 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function Form() {
   return (
-    <div className="min-h-screen bg-[#E5F9F7]">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-primary/10 to-background pt-16 pb-12 md:pt-24 md:pb-20">
+      <section className="relative bg-[#E6FFFC] from-primary/10 to-background pt-16 pb-12 md:pt-24 md:pb-20">
         <div className="container px-4 mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Transforming Digital Finance
@@ -53,7 +53,7 @@ export default function Form() {
                 description: "Constantly evolving to serve you better",
               },
             ].map((value, index) => (
-              <Card key={index} className="text-center">
+              <Card key={index} className="text-center bg-[#E6FFFC]">
                 <CardContent className="pt-6">
                   <div className="rounded-full bg-primary/10 p-3 inline-block mb-4">
                     {value.icon}
@@ -68,7 +68,7 @@ export default function Form() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-primary/5 py-12 md:py-20">
+      <section className="bg-[#E6FFFC] py-12 md:py-20">
         <div className="container px-4 mx-auto">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             {[

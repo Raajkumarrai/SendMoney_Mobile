@@ -6,7 +6,7 @@ const TopNav = () => {
     setLanguage((prev) => (prev === "English" ? "Nepali" : "English"));
   };
   return (
-    <div className="sticky top-0 z-20">
+    <div>
       <div className="h-auto w-full bg-black text-white font-normal p-1 flex justify-between font-arial ">
         <div className="flex gap-1">
           <svg

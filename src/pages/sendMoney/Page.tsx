@@ -40,7 +40,7 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-[#e8f7f8]">
+    <div className="min-h-screen bg-[#E6FFFC]">
       {/* Main Form */}
       <main className="container mx-auto px-4 py-8">
         <form onSubmit={handleSubmit}>

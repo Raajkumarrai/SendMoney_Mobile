@@ -41,7 +41,7 @@ export default function HomePage() {
             <br />
             Fast and Easily
           </h1>
-          <p className="mx-auto max-w-[600px] text-gray-700 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          <p className="mx-auto max-w-[600px] text-gray-900 md:text-xl lg:text-base  xl:text-xl/relaxed">
             Send money to your loved ones securely and instantly with our global
             money transfer service. Lower fees, better exchange rates, and
             faster delivery.
@@ -59,7 +59,7 @@ export default function HomePage() {
               onClick={handleClick}
               variant="outline"
               size="lg"
-              className="border-[#00B8A9] text-[#00B8A9] hover:bg-[#E6FFFC]"
+              className="border-[#00B8A9] text-[#00B8A9] hover:bg-[#3b9292] hover:text-white transition duration-500"
             >
               How It Works
             </Button>
@@ -420,7 +420,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-4 py-16 bg-[#467c79] text-white">
+      <section className="px-4 py-16">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h2 className="text-3xl font-bold">Ready to Send Money?</h2>
           <p className="text-xl">
@@ -430,7 +430,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button
               onClick={sendMoney}
-              className="bg-white text-[#00B8A9] hover:bg-gray-100 transition duration-300"
+              className="bg-white text-[#00B8A9] hover:bg-[#00a599] hover:text-white transition duration-500"
               size="lg"
             >
               Send Money Now
@@ -438,7 +438,7 @@ export default function HomePage() {
             <Button
               onClick={() => navigate("/signup")}
               variant="outline"
-              className="border-white text-slate-600 hover:bg-[#00a599] hover:text-white transition duration-300"
+              className="border-white text-slate-600 hover:bg-[#00a599] hover:text-white transition duration-500"
               size="lg"
             >
               Create Account

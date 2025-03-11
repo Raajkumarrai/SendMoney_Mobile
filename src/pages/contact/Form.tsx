@@ -57,19 +57,19 @@ const ContactPage = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header Banner */}
-      <div className="bg-[#7ef1f1] py-16 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-9">
+      <div className="bg-gray-50 py-16 px-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-80">
           <img
             src="/../contact.jpg"
             alt="Contact pattern"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-[0.5]"
           />
         </div>
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <div className="max-w-7xl mx-auto text-center relative z-10 ">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
             Contact Us
           </h1>
-          <p className="text-lg text-gray-900 max-w-2xl mx-auto">
+          <p className="text-lg text-white max-w-2xl mx-auto">
             We'd love to hear from you. Get in touch with our team for any
             questions, feedback, or support.
           </p>
