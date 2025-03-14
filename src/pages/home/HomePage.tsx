@@ -9,6 +9,8 @@ import {
   DollarSign,
   ArrowRight,
   Globe,
+  Send,
+  HelpCircle,
 } from "lucide-react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,20 +30,20 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#E6FFFC]">
       {/* Hero Section with Background Image */}
       <section className="relative px-4 py-20 text-center md:py-32 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-50">
+        <div className="absolute bg-black inset-0 z-0">
           <img
             src="../world-image.png"
             alt="World map background"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-[0.3]"
           />
         </div>
-        <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+        <div className="relative z-50 max-w-3xl mx-auto space-y-6">
+          <h1 className="text-3xl font-semibold max-w-[700px] text-center mx-auto tracking-tighter text-white sm:text-4xl md:text-5xl">
             Transfer Money Around The World,
             <br />
             Fast and Easily
           </h1>
-          <p className="mx-auto max-w-[600px] text-gray-900 md:text-xl lg:text-base  xl:text-xl/relaxed">
+          <p className="mx-auto max-w-[600px] text-gray-300 md:text-xl lg:text-base  xl:text-xl/relaxed">
             Send money to your loved ones securely and instantly with our global
             money transfer service. Lower fees, better exchange rates, and
             faster delivery.
@@ -50,18 +52,20 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               onClick={sendMoney}
-              className="bg-[#0e746b] hover:bg-[#2f857d] text-white duration-300 transition"
+              className="bg-[#0e746b] hover:bg-[#2f857d] text-white duration-300 transition flex items-center"
               size="lg"
             >
               Send Money Now
+              <Send size={16} />
             </Button>
             <Button
               onClick={handleClick}
               variant="outline"
               size="lg"
-              className="border-[#00B8A9] text-[#00B8A9] hover:bg-[#3b9292] hover:text-white transition duration-500"
+              className="border-[#00B8A9] text-black hover:bg-[#3b9292] hover:text-white transition duration-500"
             >
               How It Works
+              <HelpCircle className="w-5 h-5" />
             </Button>
           </div>
         </div>

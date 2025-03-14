@@ -62,11 +62,11 @@ const ContactPage = () => {
           <img
             src="/../contact.jpg"
             alt="Contact pattern"
-            className="w-full h-full object-cover opacity-[0.5]"
+            className="w-full h-full object-cover opacity-[0.3]"
           />
         </div>
         <div className="max-w-7xl mx-auto text-center relative z-10 ">
-          <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Contact Us
           </h1>
           <p className="text-lg text-white max-w-2xl mx-auto">

@@ -17,7 +17,7 @@ const TopBarNav = () => {
   ];
 
   return (
-    <nav className="flex justify-between items-center w-full p-4 h-20 sticky top-0 z-50 shadow-sm bg-[#b4ffff]">
+    <nav className="flex justify-between items-center w-full p-4 h-20 sticky top-0 z-[9999999999999999999999] shadow-sm bg-[#b4ffff]">
       {/* Logo */}
       <div className="h-[70px] w-[70px] rounded-full">
         <img src="../logo.png" alt="Send Money" className="h-full w-full" />
@@ -31,8 +31,8 @@ const TopBarNav = () => {
               to={path}
               className={`transition duration-300 px-3 py-1 bg-[#b4ffff] rounded shadow-lg shadow-blue-400 ${
                 location.pathname === path
-                  ? "text-blue-500 shadow-sm shadow-black"
-                  : "hover:text-blue-300"
+                  ? "text-blue-500  shadow-black"
+                  : "hover:text-blue-300 shadow-sm"
               }`}
               style={{ backgroundColor: "rgba(155, 255, 249, 1)" }}
             >
