@@ -1,7 +1,7 @@
 const FootContact = () => {
   return (
-    <footer className="bg-[#b3ffff] text-black px-4 py-12">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-black">
+    <footer className="bg-[#0e746b] text-white px-4 py-12">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
           <h3 className="font-semibold mb-4">Contact Us</h3>
           <p className="text-sm ">

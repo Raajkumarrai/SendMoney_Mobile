@@ -192,7 +192,7 @@ export default function Form() {
             </button>
 
             <div className="text-xs mt-auto">
-              <span>SEND MONEY | EVERYWHERE | ANYWHERE</span>
+              <span>SEND MONEY | ANYTIME | ANYWHERE</span>
             </div>
           </div>
 
@@ -235,7 +235,7 @@ export default function Form() {
                 </svg>
 
                 <input
-                  className="w-full bg-transparent focus:outline-none px-2"
+                  className="w-full bg-transparent focus:outline-none px-2 text-[15px]"
                   type="text"
                   placeholder="Email"
                   value={username}
@@ -284,7 +284,7 @@ export default function Form() {
                 </svg>
 
                 <input
-                  className="w-full bg-transparent focus:outline-none px-2"
+                  className="w-full bg-transparent focus:outline-none px-2 text-[15px]"
                   type="password"
                   placeholder="Password"
                   value={password}
