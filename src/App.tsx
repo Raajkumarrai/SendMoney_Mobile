@@ -8,6 +8,7 @@ import ScrollToTop from "./pages/nav/ScrollToTop";
 import About from "./pages/about";
 import Testimonials from "./pages/testimonials";
 import Track from "./pages/track";
+import Password from "./pages/password/Password";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/sendMoney" element={<SendMoney />} />
         <Route path="/contact" element={<ContactMain />} />
+        <Route path="/password" element={<Password />} />
       </Routes>
     </BrowserRouter>
   );
