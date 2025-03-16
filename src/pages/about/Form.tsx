@@ -6,9 +6,9 @@ export default function Form() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-[#E6FFFC] from-primary/10 to-background pt-16 pb-12 md:pt-24 md:pb-20">
+      <section className="relative bg-[#e2f7f5] from-primary/10 to-background pt-16 pb-12 md:pt-24 md:pb-20">
         <div className="container px-4 mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="text-4xl md:text-5xl font-semibold mb-6">
             Transforming Digital Finance
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -53,9 +53,9 @@ export default function Form() {
                 description: "Constantly evolving to serve you better",
               },
             ].map((value, index) => (
-              <Card key={index} className="text-center bg-[#E6FFFC]">
+              <Card key={index} className="text-center bg-[#e2f7f5]">
                 <CardContent className="pt-6">
-                  <div className="rounded-full bg-primary/10 p-3 inline-block mb-4">
+                  <div className="rounded-full bg-primary/10 p-3 inline-block mb-4 bg-white">
                     {value.icon}
                   </div>
                   <h3 className="font-semibold text-xl mb-2">{value.title}</h3>
@@ -68,7 +68,7 @@ export default function Form() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-[#E6FFFC] py-12 md:py-20">
+      <section className="bg-[#e2f7f5] py-12 md:py-20">
         <div className="container px-4 mx-auto">
           <div className="grid md:grid-cols-3 gap-8 text-center">
             {[

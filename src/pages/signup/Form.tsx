@@ -259,10 +259,11 @@ export default function RegisterForm() {
             <h1 className="text-3xl font-bold mb-4">Join Us!</h1>
             <p className="text-sm mb-1">To become part of our community</p>
             <p className="text-sm mb-8">please create your account</p>
-
-            <button className="border border-white rounded-full py-2 px-4 mt-auto mb-4 text-sm hover:bg-[#0d846c] hover:text-white transition-colors">
-              REGISTER
-            </button>
+            <div className="border border-white rounded-full py-2 px-4 mt-auto mb-4 text-sm hover:bg-[#0d846c] hover:text-white transition-colors flex justify-center w-full">
+              <Link className="w-full flex justify-center" to="/">
+                LOGIN
+              </Link>
+            </div>
 
             <div className="text-xs mt-auto">
               {" "}

@@ -9,11 +9,11 @@ const TopBarNav = () => {
 
   const navLinks = [
     { path: "/home", label: "Home" },
-    { path: "/about", label: "About Us" },
-    { path: "/track", label: "Track Transfer" },
     { path: "/sendMoney", label: "Send Money" },
     { path: "/testimonials", label: "Testimonials" },
-    { path: "/contact", label: "Contact" },
+    { path: "/track", label: "Track Transfer" },
+    { path: "/about", label: "About Us" },
+    { path: "/contact", label: "Contact Us" },
   ];
 
   return (
@@ -89,7 +89,20 @@ const TopBarNav = () => {
       </AnimatePresence>
 
       {/* This span will be visible only on desktop */}
-      <span className="hidden md:inline-block"></span>
+      <div className="flex justify-center gap-5">
+        <Link
+          to="/signup"
+          className="text-white hover:bg-white hover:text-[#0e746b] rounded-lg px-2 py-1 duration-300"
+        >
+          Sign-up
+        </Link>
+        <Link
+          to="/signup"
+          className="text-[#0e746b] bg-white px-2 py-1 rounded-lg hover:bg-[#0e746b] hover:text-white duration-300"
+        >
+          Login
+        </Link>
+      </div>
     </nav>
   );
 };

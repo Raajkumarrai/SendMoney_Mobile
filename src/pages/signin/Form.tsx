@@ -187,9 +187,11 @@ export default function Form() {
             <p className="text-sm mb-1">To stay connected with us</p>
             <p className="text-sm mb-8">please login with your personal info</p>
 
-            <button className="border border-white rounded-full py-2 px-4 mt-auto mb-4 text-sm hover:bg-[#0d846c] hover:text-white transition-colors">
-              <Link to="/signup">SIGN UP</Link>
-            </button>
+            <div className="border border-white rounded-full py-2 px-4 mt-auto mb-4 text-sm hover:bg-[#0d846c] hover:text-white transition-colors">
+              <Link className="w-full flex justify-center" to="/signup">
+                REGISTER
+              </Link>
+            </div>
 
             <div className="text-xs mt-auto">
               <span>SEND MONEY | ANYTIME | ANYWHERE</span>

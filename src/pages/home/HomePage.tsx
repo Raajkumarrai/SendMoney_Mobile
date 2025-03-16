@@ -72,7 +72,7 @@ export default function HomePage() {
       </section>
 
       {/* Fast Transfer Section */}
-      <section className="px-4 py-12 md:py-16 bg-[#E6FFFC]">
+      <section className="px-4 py-12 md:py-16 bg-[#e2f7f5] ">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-4 order-2 md:order-1">
@@ -101,7 +101,7 @@ export default function HomePage() {
                 </li>
               </ul>
               <Button
-                className="bg-[#00B8A9] hover:bg-[#1b4e4a] text-white transition duration-300 mt-4"
+                className="bg-[#0e746b] hover:bg-[#3b9292] text-white transition duration-300 mt-4"
                 onClick={sendMoney}
               >
                 Send Money Now
@@ -130,7 +130,7 @@ export default function HomePage() {
                 <div className="relative mx-auto w-24 h-24 rounded-full bg-[#E6FFFC] flex items-center justify-center">
                   <DollarSign className="w-10 h-10 text-[#00B8A9]" />
                   <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 hidden md:block">
-                    <ArrowRight className="w-8 h-8 text-[#00B8A9]" />
+                    <ArrowRight className="w-8 h-8 text-[#00B8A9] absolute top-[-13px] right-[-150px]" />
                   </div>
                 </div>
                 <h3 className="text-xl font-semibold">1. Enter Amount</h3>
@@ -143,7 +143,7 @@ export default function HomePage() {
                 <div className="relative mx-auto w-24 h-24 rounded-full bg-[#E6FFFC] flex items-center justify-center">
                   <Globe className="w-10 h-10 text-[#00B8A9]" />
                   <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 hidden md:block">
-                    <ArrowRight className="w-8 h-8 text-[#00B8A9]" />
+                    <ArrowRight className="w-8 h-8 text-[#00B8A9] absolute top-[-13px] right-[-150px]" />
                   </div>
                 </div>
                 <h3 className="text-xl font-semibold">2. Select Destination</h3>
@@ -166,7 +166,7 @@ export default function HomePage() {
             <div className="mt-12 text-center">
               <Button
                 onClick={sendMoney}
-                className="bg-[#00B8A9] hover:bg-[#1b4e4a] text-white duration-300 transition"
+                className="bg-[#0e746b] hover:bg-[#3b9292] text-white duration-300 transition"
               >
                 Start Your Transfer
               </Button>
@@ -176,7 +176,7 @@ export default function HomePage() {
       </div>
 
       {/* Features Section */}
-      <section className="px-4 py-8 md:py-12 lg:py-16">
+      <section className="px-4 py-8 md:py-12 lg:py-16 bg-[#e2f7f5]">
         <h2 className="text-2xl font-bold text-center mb-8">Why Choose Us</h2>
         <p className="text-center mb-12 text-gray-500 max-w-2xl mx-auto">
           Simple and easy solution for transferring money safely and faster
@@ -236,27 +236,27 @@ export default function HomePage() {
               className="w-full h-full object-contain"
             />
             {/* Add some animated dots for popular corridors */}
-            <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#00B8A9] rounded-full animate-ping"></div>
-            <div className="absolute top-1/3 left-1/2 w-3 h-3 bg-[#00B8A9] rounded-full animate-ping animation-delay-300"></div>
-            <div className="absolute top-1/2 left-3/4 w-3 h-3 bg-[#00B8A9] rounded-full animate-ping animation-delay-600"></div>
+            <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#e2f7f5] rounded-full animate-ping"></div>
+            <div className="absolute top-1/3 left-1/2 w-3 h-3 bg-[#e2f7f5] rounded-full animate-ping animation-delay-300"></div>
+            <div className="absolute top-1/2 left-3/4 w-3 h-3 bg-[#e2f7f5] rounded-full animate-ping animation-delay-600"></div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 bg-[#E6FFFC] rounded-lg">
+            <div className="p-4 bg-[#e2f7f5] rounded-lg">
               <h3 className="font-semibold">Asia</h3>
               <p className="text-sm text-gray-500">Nepal, Philippines, China</p>
             </div>
-            <div className="p-4 bg-[#E6FFFC] rounded-lg">
+            <div className="p-4 bg-[#e2f7f5] rounded-lg">
               <h3 className="font-semibold">North America</h3>
               <p className="text-sm text-gray-500">USA, Canada, Mexico</p>
             </div>
-            <div className="p-4 bg-[#E6FFFC] rounded-lg">
+            <div className="p-4 bg-[#e2f7f5] rounded-lg">
               <h3 className="font-semibold">Europe</h3>
               <p className="text-sm text-gray-500">
                 UK, France, Germany, Spain
               </p>
             </div>
 
-            <div className="p-4 bg-[#E6FFFC] rounded-lg">
+            <div className="p-4 bg-[#e2f7f5] rounded-lg">
               <h3 className="font-semibold">Africa</h3>
               <p className="text-sm text-gray-500">Nigeria, Kenya, Ghana</p>
             </div>
@@ -362,7 +362,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="px-4 py-16 bg-[#E6FFFC]">
+      <section className="px-4 py-16 bg-[#e2f7f5]">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-center mb-12">
             Frequently Asked Questions
@@ -424,9 +424,9 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-4 py-16">
+      <section className="px-4 py-16 bg-[#e2f7f5]">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h2 className="text-3xl font-bold">Ready to Send Money?</h2>
+          <h2 className="text-3xl font-semibold">Ready to Send Money?</h2>
           <p className="text-xl">
             Join millions of satisfied customers who trust us for their
             international money transfers.
@@ -434,7 +434,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button
               onClick={sendMoney}
-              className="bg-white text-[#00B8A9] hover:bg-[#00a599] hover:text-white transition duration-500"
+              className="bg-white text-[#00B8A9] hover:bg-[#0e746b] hover:text-white transition duration-500"
               size="lg"
             >
               Send Money Now
@@ -442,7 +442,7 @@ export default function HomePage() {
             <Button
               onClick={() => navigate("/signup")}
               variant="outline"
-              className="border-white text-slate-600 hover:bg-[#00a599] hover:text-white transition duration-500"
+              className="border-white text-slate-600 hover:bg-[#0e746b] hover:text-white transition duration-500"
               size="lg"
             >
               Create Account
