@@ -16,7 +16,10 @@ export default function Form() {
             transfers, making it easier, faster, and more secure than ever
             before.
           </p>
-          <Button size="lg" className="mb-12">
+          <Button
+            size="lg"
+            className="mb-12 border border-[#0e746b] text-gray-100 bg-[#0e746b] hover:bg-white hover:text-[#0e746b] duration-300"
+          >
             Learn More
           </Button>
         </div>
@@ -25,13 +28,13 @@ export default function Form() {
       {/* Values Section */}
       <section className="py-12 md:py-20">
         <div className="container px-4 mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-semibold text-center mb-12">
             Our Core Values
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 ">
             {[
               {
-                icon: <Target className="h-8 w-8" />,
+                icon: <Target className="h-8 w-8 " />,
                 title: "Mission Driven",
                 description:
                   "Committed to financial inclusion and accessibility for all",
@@ -55,10 +58,12 @@ export default function Form() {
             ].map((value, index) => (
               <Card key={index} className="text-center bg-[#e2f7f5]">
                 <CardContent className="pt-6">
-                  <div className="rounded-full bg-primary/10 p-3 inline-block mb-4 bg-white">
+                  <div className="rounded-full bg-primary/10 p-3 inline-block mb-4 bg-white text-[#0e746b]">
                     {value.icon}
                   </div>
-                  <h3 className="font-semibold text-xl mb-2">{value.title}</h3>
+                  <h3 className="font-semibold text-xl mb-2 text-[#0e746b]">
+                    {value.title}
+                  </h3>
                   <p className="text-muted-foreground">{value.description}</p>
                 </CardContent>
               </Card>
@@ -77,7 +82,7 @@ export default function Form() {
               { number: "99.9%", label: "Success Rate" },
             ].map((stat, index) => (
               <div key={index}>
-                <div className="text-4xl font-bold text-primary mb-2">
+                <div className="text-4xl font-semibold text-primary mb-2">
                   {stat.number}
                 </div>
                 <div className="text-muted-foreground">{stat.label}</div>
@@ -86,37 +91,6 @@ export default function Form() {
           </div>
         </div>
       </section>
-
-      {/* Story Section */}
-      {/* <section className="py-12 md:py-20">
-        <div className="container px-4 mx-auto">
-          <div className="grid md:grid-cols-2  items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Our Story</h2>
-              <div className="space-y-4">
-                <p>
-                  Founded in 2020, our journey began with a simple mission: to
-                  make financial services accessible to everyone. What started
-                  as a small startup has grown into a global platform serving
-                  millions.
-                </p>
-                <p>
-                  We've built our reputation on trust, security, and innovation.
-                  Our team of experts works tirelessly to develop cutting-edge
-                  solutions that make money transfers as simple as sending a
-                  text message.
-                </p>
-                <p>
-                  Today, we're proud to be one of the leading financial
-                  technology companies, but we're even more excited about what
-                  the future holds. We continue to innovate and expand our
-                  services to meet the evolving needs of our global community.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       {/* Contact Section */}
       <section className="py-12 md:py-20">
@@ -130,7 +104,7 @@ export default function Form() {
             <div className="space-y-4">
               <div className="flex items-center justify-center gap-2">
                 <Phone className="h-5 w-5 text-primary" />
-                <span>+977 </span>
+                <span>+977 9800000000 </span>
               </div>
               <div className="flex items-center justify-center gap-2">
                 <Mail className="h-5 w-5 text-primary" />

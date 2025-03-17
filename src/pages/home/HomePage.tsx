@@ -11,6 +11,7 @@ import {
   Globe,
   Send,
   HelpCircle,
+  CircleUserRound,
 } from "lucide-react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +28,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#E6FFFC]">
+    <div className="min-h-screen overflow-hidden bg-[#E6FFFC]">
       {/* Hero Section with Background Image */}
       <section className="relative px-4 py-20 text-center md:py-32 overflow-hidden">
         <div className="absolute bg-black inset-0 z-0">
@@ -37,7 +38,7 @@ export default function HomePage() {
             className="w-full h-full object-cover opacity-[0.3]"
           />
         </div>
-        <div className="relative z-50 max-w-3xl mx-auto space-y-6">
+        <div className="relative max-w-3xl mx-auto space-y-6">
           <h1 className="text-3xl font-semibold max-w-[700px] text-center mx-auto tracking-tighter text-white sm:text-4xl md:text-5xl">
             Transfer Money Around The World,
             <br />
@@ -105,6 +106,7 @@ export default function HomePage() {
                 onClick={sendMoney}
               >
                 Send Money Now
+                <Send className="h-4 w-4 mr-2" />
               </Button>
             </div>
             <div className="order-1 md:order-2 flex justify-center">
@@ -168,7 +170,7 @@ export default function HomePage() {
                 onClick={sendMoney}
                 className="bg-[#0e746b] hover:bg-[#3b9292] text-white duration-300 transition"
               >
-                Start Your Transfer
+                Start Your Transfer <Send className="h-4 w-4 mr-2" />
               </Button>
             </div>
           </div>
@@ -434,18 +436,18 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button
               onClick={sendMoney}
-              className="bg-white text-[#00B8A9] hover:bg-[#0e746b] hover:text-white transition duration-500"
+              className="text-white hover:text-[#00B8A9] bg-[#0e746b] hover:bg-white border border-[#0e746b] transition duration-500"
               size="lg"
             >
-              Send Money Now
+              Send Money Now <Send className="h-4 w-4 mr-2" />
             </Button>
             <Button
               onClick={() => navigate("/signup")}
               variant="outline"
-              className="border-white text-slate-600 hover:bg-[#0e746b] hover:text-white transition duration-500"
+              className="border-white items-center text-slate-600 hover:bg-[#0e746b] hover:text-white transition duration-500"
               size="lg"
             >
-              Create Account
+              Create Account <CircleUserRound />
             </Button>
           </div>
         </div>

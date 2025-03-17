@@ -7,7 +7,7 @@ const TopNav = () => {
   };
   return (
     <div>
-      <div className="h-auto w-full bg-black text-white font-normal p-1 flex justify-between font-arial ">
+      <div className="h-auto w-full bg-black text-white text-sm p-1 flex justify-between ">
         <div className="flex gap-1">
           <svg
             width="25"

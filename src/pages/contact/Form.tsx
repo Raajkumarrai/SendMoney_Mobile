@@ -84,7 +84,7 @@ const ContactPage = () => {
           <div className="bg-white rounded-xl shadow-md overflow-hidden h-full">
             <div className="p-6 border-b">
               <div className="flex items-center gap-3 mb-4">
-                <Building className="h-6 w-6 text-[#43caca]" />
+                <Building className="h-6 w-6 text-[#0e746b]" />
                 <h2 className="text-2xl font-bold">Our Office</h2>
               </div>
               <p className="text-gray-600">
@@ -109,7 +109,7 @@ const ContactPage = () => {
           <div className="bg-white rounded-xl shadow-md overflow-hidden">
             <div className="p-6 border-b">
               <div className="flex items-center gap-3 mb-4">
-                <Send className="h-6 w-6 text-[#43caca]" />
+                <Send className="h-6 w-6 text-[#0e746b]" />
                 <h2 className="text-2xl font-bold">Send a Message</h2>
               </div>
               <p className="text-gray-600">
@@ -207,10 +207,10 @@ const ContactPage = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-[#7ef1f1] text-gray-900 hover:bg-[#43caca] transition-colors"
+                  className="w-full border border-[#0e746b] bg-[#0e746b] text-gray-100 hover:bg-white hover:text-[#0e746b] duration-300"
                 >
-                  <Send className="h-4 w-4 mr-2" />
                   Send Message
+                  <Send className="h-4 w-4 mr-2" />
                 </Button>
 
                 {showAlert && (
@@ -232,9 +232,11 @@ const ContactPage = () => {
       {/* FAQ Section */}
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">
-            Frequently Asked Questions
-          </h2>
+          <div className="flex justify-center items-center gap-3">
+            <h2 className="text-3xl font-bold mb-4">
+              Frequently Asked Questions ?
+            </h2>
+          </div>
           <p className="text-gray-600">
             Find quick answers to common questions about our services and
             support.
