@@ -1,103 +1,303 @@
-import { X } from "lucide-react";
-import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import {
+  CheckCircle,
+  Award,
+  GraduationCap,
+  Copy,
+  Printer,
+  Download,
+  Share2,
+} from "lucide-react";
+
+interface TransactionData {
+  transferAmount: number;
+  transferFee: number;
+  totalToReceive: number;
+  transactionId: string;
+  receiverName?: string;
+  receiverAccountNumber?: string;
+  receiverCountry?: string;
+  receiverCity?: string;
+  receiverContact?: string;
+  senderCountry?: string;
+  paymentMethod?: string;
+}
 
 interface SuccessModalProps {
   onClose: () => void;
-  transactionData: {
-    transferAmount: number;
-    transferFee: number;
-    totalToReceive: number;
-    transactionId: string;
-    shopAddress?: string;
-  };
-  variant?: "default" | "shop";
+  transactionData: TransactionData;
+  variant: "vip" | "scholarship";
 }
 
 export function SuccessModal({
   onClose,
   transactionData,
-  variant = "default",
+  variant,
 }: SuccessModalProps) {
-  const {
-    transferAmount,
-    transferFee,
-    totalToReceive,
-    transactionId,
-    shopAddress,
-  } = transactionData;
+  const { toast } = useToast();
+
+  const handleCopyTransactionId = () => {
+    navigator.clipboard.writeText(transactionData.transactionId);
+    toast({
+      title: "Transaction ID copied",
+      description: "Transaction ID has been copied to clipboard",
+    });
+  };
+
+  const formatDate = () => {
+    const date = new Date();
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-md w-full p-6 relative">
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 text-gray-500 hover:text-gray-700"
-        >
-          <X className="h-6 w-6" />
-          <span className="sr-only">Close</span>
-        </button>
-
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
-
-          {variant === "default" ? (
-            <>
-              <div className="flex justify-center mb-4">
-                <div className="bg-[#CFFAFE] rounded-full p-2">
-                  <Check className="h-6 w-6 text-green-600" />
+    <Dialog open={true} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md md:max-w-lg">
+        {variant === "vip" ? (
+          // VIP Success Modal
+          <>
+            <DialogHeader className="bg-gradient-to-r from-emerald-600 to-teal-500 -mx-6 -mt-6 px-6 py-4 rounded-t-lg">
+              <div className="flex items-center justify-center mb-2">
+                <div className="bg-white rounded-full p-2">
+                  <CheckCircle className="h-8 w-8 text-emerald-600" />
                 </div>
               </div>
-              <p className="text-lg mb-6">
-                Your transaction has been completely Successfully
+              <DialogTitle className="text-white text-center text-xl">
+                VIP Transfer Successful
+              </DialogTitle>
+              <p className="text-white text-center text-sm opacity-90 mt-1">
+                Your money has been sent successfully
               </p>
-              <div className="space-y-4">
-                <h3 className="font-semibold text-left">Summary</h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span>Transfer Amount</span>
-                    <span>{transferAmount.toFixed(2)} USD</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Transfer Fee</span>
-                    <span>2+ {transferFee.toFixed(2)} USD</span>
-                  </div>
-                  <div className="flex justify-between border-t pt-2">
-                    <span>Transfer Total</span>
-                    <span>{(transferAmount + transferFee).toFixed(2)} USD</span>
-                  </div>
-                </div>
-                <div className="flex justify-between border-t pt-2">
-                  <span>Total to Receive</span>
-                  <span>{totalToReceive.toFixed(2)} USD</span>
+            </DialogHeader>
+
+            <div className="space-y-4 py-2">
+              <div className="flex justify-between items-center border-b pb-2">
+                <span className="text-gray-500">Transaction ID</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-medium">
+                    {transactionData.transactionId}
+                  </span>
+                  <button
+                    onClick={handleCopyTransactionId}
+                    className="text-emerald-600"
+                  >
+                    <Copy className="h-4 w-4" />
+                  </button>
                 </div>
               </div>
-            </>
-          ) : (
-            <>
-              <p className="text-lg mb-4">
-                Receiver will receive ${totalToReceive.toFixed(2)}
-              </p>
-              <div className="mb-6">
-                <h3 className="font-semibold text-left mb-2">
-                  From (Shop Address)
-                </h3>
-                <p className="text-left text-gray-600">
-                  {shopAddress ||
-                    "Lorem ipsum dolor sit amet consectetur. Venenatis non vel laoreet iaculis egestas luctus enim varius. Fermentum semper at non amet dignissim tellus congue malesuada pulvinar."}
+
+              <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+                <div className="flex items-center gap-2 mb-3">
+                  <Award className="h-5 w-5 text-emerald-600" />
+                  <h3 className="font-medium text-emerald-800">
+                    VIP Transfer Details
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-2 gap-y-2 text-sm">
+                  <div className="text-gray-500">Amount Sent</div>
+                  <div className="font-medium text-right">
+                    ${transactionData.transferAmount.toFixed(2)}
+                  </div>
+
+                  <div className="text-gray-500">Transfer Fee</div>
+                  <div className="font-medium text-right">
+                    ${transactionData.transferFee.toFixed(2)}
+                  </div>
+
+                  <div className="text-gray-500">Total Amount</div>
+                  <div className="font-medium text-right">
+                    $
+                    {(
+                      transactionData.transferAmount +
+                      transactionData.transferFee
+                    ).toFixed(2)}
+                  </div>
+
+                  <div className="text-gray-500">Date & Time</div>
+                  <div className="font-medium text-right">{formatDate()}</div>
+
+                  <div className="text-gray-500">From Country</div>
+                  <div className="font-medium text-right">
+                    {transactionData.senderCountry || "Not specified"}
+                  </div>
+
+                  <div className="text-gray-500">To Country</div>
+                  <div className="font-medium text-right">
+                    {transactionData.receiverCountry || "Not specified"}
+                  </div>
+
+                  <div className="text-gray-500">Receiver Name</div>
+                  <div className="font-medium text-right">
+                    {transactionData.receiverName || "Not specified"}
+                  </div>
+
+                  <div className="text-gray-500">Receiver Account</div>
+                  <div className="font-medium text-right">
+                    {transactionData.receiverAccountNumber || "Not specified"}
+                  </div>
+
+                  <div className="text-gray-500">Payment Method</div>
+                  <div className="font-medium text-right capitalize">
+                    {transactionData.paymentMethod || "Not specified"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-100 text-sm">
+                <p className="text-yellow-800">
+                  <span className="font-medium">VIP Priority:</span> Your
+                  transfer has been prioritized and will be processed
+                  immediately.
                 </p>
               </div>
-              <div className="flex justify-between border-t pt-2">
-                <span>Total to Receive</span>
-                <span>${totalToReceive.toFixed(2)} USD</span>
-              </div>
-            </>
-          )}
+            </div>
 
-          <div className="mt-6 pt-4 border-t text-center text-sm text-gray-600">
-            Transaction id: {transactionId}
-          </div>
-        </div>
-      </div>
-    </div>
+            <DialogFooter className="flex flex-col sm:flex-row gap-2">
+              <Button variant="outline" className="flex-1" onClick={onClose}>
+                Close
+              </Button>
+              <Button className="bg-emerald-600 hover:bg-emerald-700 flex-1">
+                <Printer className="mr-2 h-4 w-4" /> Print Receipt
+              </Button>
+            </DialogFooter>
+          </>
+        ) : (
+          // Scholarship Success Modal
+          <>
+            <DialogHeader className="bg-gradient-to-r from-blue-600 to-indigo-500 -mx-6 -mt-6 px-6 py-4 rounded-t-lg">
+              <div className="flex items-center justify-center mb-2">
+                <div className="bg-white rounded-full p-2">
+                  <GraduationCap className="h-8 w-8 text-blue-600" />
+                </div>
+              </div>
+              <DialogTitle className="text-white text-center text-xl">
+                Scholarship Transfer Complete
+              </DialogTitle>
+              <p className="text-white text-center text-sm opacity-90 mt-1">
+                Your scholarship payment has been processed
+              </p>
+            </DialogHeader>
+
+            <div className="space-y-4 py-2">
+              <div className="flex justify-between items-center border-b pb-2">
+                <span className="text-gray-500">Transaction ID</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-medium">
+                    {transactionData.transactionId}
+                  </span>
+                  <button
+                    onClick={handleCopyTransactionId}
+                    className="text-blue-600"
+                  >
+                    <Copy className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                <div className="flex items-center gap-2 mb-3">
+                  <GraduationCap className="h-5 w-5 text-blue-600" />
+                  <h3 className="font-medium text-blue-800">
+                    Scholarship Payment Details
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-2 gap-y-2 text-sm">
+                  <div className="text-gray-500">Scholarship Amount</div>
+                  <div className="font-medium text-right">
+                    ${transactionData.transferAmount.toFixed(2)}
+                  </div>
+
+                  <div className="text-gray-500">Processing Fee</div>
+                  <div className="font-medium text-right">
+                    ${transactionData.transferFee.toFixed(2)}
+                  </div>
+
+                  <div className="text-gray-500">Total Paid</div>
+                  <div className="font-medium text-right">
+                    $
+                    {(
+                      transactionData.transferAmount +
+                      transactionData.transferFee
+                    ).toFixed(2)}
+                  </div>
+
+                  <div className="text-gray-500">Payment Date</div>
+                  <div className="font-medium text-right">{formatDate()}</div>
+
+                  <div className="text-gray-500">From Country</div>
+                  <div className="font-medium text-right">
+                    {transactionData.senderCountry || "Not specified"}
+                  </div>
+
+                  <div className="text-gray-500">To Country</div>
+                  <div className="font-medium text-right">
+                    {transactionData.receiverCountry || "Not specified"}
+                  </div>
+
+                  <div className="text-gray-500">Recipient Name</div>
+                  <div className="font-medium text-right">
+                    {transactionData.receiverName || "Not specified"}
+                  </div>
+
+                  <div className="text-gray-500">Recipient Account</div>
+                  <div className="font-medium text-right">
+                    {transactionData.receiverAccountNumber || "Not specified"}
+                  </div>
+
+                  <div className="text-gray-500">Payment Method</div>
+                  <div className="font-medium text-right capitalize">
+                    {transactionData.paymentMethod || "Not specified"}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 text-sm">
+                <p className="text-blue-800">
+                  <span className="font-medium">Scholarship Note:</span> This
+                  payment has been tagged as an educational scholarship
+                  transfer. The recipient institution will be notified.
+                </p>
+              </div>
+            </div>
+
+            <DialogFooter className="flex sm:justify-between gap-2">
+              <Button
+                variant="outline"
+                className="flex-1 sm:flex-none"
+                onClick={onClose}
+              >
+                Close
+              </Button>
+              <div className="flex gap-2 flex-1 sm:flex-none">
+                <Button
+                  variant="outline"
+                  className="flex-1 border-blue-600 text-blue-600"
+                >
+                  <Download className="mr-2 h-4 w-4" /> Save
+                </Button>
+                <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
+                  <Share2 className="mr-2 h-4 w-4" /> Share
+                </Button>
+              </div>
+            </DialogFooter>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
