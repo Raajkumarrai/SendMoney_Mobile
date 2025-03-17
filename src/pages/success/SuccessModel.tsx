@@ -7,15 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import {
-  CheckCircle,
-  Award,
-  GraduationCap,
-  Copy,
-  Printer,
-  Download,
-  Share2,
-} from "lucide-react";
+import { Award, GraduationCap, Copy, Printer, Download } from "lucide-react";
 
 interface TransactionData {
   transferAmount: number;
@@ -69,10 +61,14 @@ export function SuccessModal({
         {variant === "vip" ? (
           // VIP Success Modal
           <>
-            <DialogHeader className="bg-gradient-to-r from-emerald-600 to-teal-500 -mx-6 -mt-6 px-6 py-4 rounded-t-lg">
+            <DialogHeader className="bg-gradient-to-r from-[#0e746b] to-[#0e946b] -mx-6 -mt-6 px-6 py-4 rounded-t-lg">
               <div className="flex items-center justify-center mb-2">
-                <div className="bg-white rounded-full p-2">
-                  <CheckCircle className="h-8 w-8 text-emerald-600" />
+                <div className="bg-white rounded-full">
+                  <img
+                    src="../logo.png"
+                    alt="SendMoney"
+                    className="h-16 w-16"
+                  />
                 </div>
               </div>
               <DialogTitle className="text-white text-center text-xl">
@@ -94,7 +90,7 @@ export function SuccessModal({
                     onClick={handleCopyTransactionId}
                     className="text-emerald-600"
                   >
-                    <Copy className="h-4 w-4" />
+                    <Copy className="h-4 w-4 text-[#0e746b]" />
                   </button>
                 </div>
               </div>
@@ -170,7 +166,7 @@ export function SuccessModal({
               <Button variant="outline" className="flex-1" onClick={onClose}>
                 Close
               </Button>
-              <Button className="bg-emerald-600 hover:bg-emerald-700 flex-1">
+              <Button className="bg-[#0e746b] hover:bg-emerald-700 flex-1">
                 <Printer className="mr-2 h-4 w-4" /> Print Receipt
               </Button>
             </DialogFooter>
@@ -178,10 +174,10 @@ export function SuccessModal({
         ) : (
           // Scholarship Success Modal
           <>
-            <DialogHeader className="bg-gradient-to-r from-blue-600 to-indigo-500 -mx-6 -mt-6 px-6 py-4 rounded-t-lg">
+            <DialogHeader className="bg-gradient-to-r from-[#0e746b] to-[#0e346b] -mx-6 -mt-6 px-6 py-4 rounded-t-lg">
               <div className="flex items-center justify-center mb-2">
                 <div className="bg-white rounded-full p-2">
-                  <GraduationCap className="h-8 w-8 text-blue-600" />
+                  <GraduationCap className="h-8 w-8 text-[#0e746b]" />
                 </div>
               </div>
               <DialogTitle className="text-white text-center text-xl">
@@ -203,15 +199,15 @@ export function SuccessModal({
                     onClick={handleCopyTransactionId}
                     className="text-blue-600"
                   >
-                    <Copy className="h-4 w-4" />
+                    <Copy className="h-4 w-4 text-[#0e746b]" />
                   </button>
                 </div>
               </div>
 
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
                 <div className="flex items-center gap-2 mb-3">
-                  <GraduationCap className="h-5 w-5 text-blue-600" />
-                  <h3 className="font-medium text-blue-800">
+                  <GraduationCap className="h-5 w-5 text-[#0e346b]" />
+                  <h3 className="font-medium text-[#0e346b]">
                     Scholarship Payment Details
                   </h3>
                 </div>
@@ -266,11 +262,11 @@ export function SuccessModal({
                 </div>
               </div>
 
-              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 text-sm">
-                <p className="text-blue-800">
+              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 text-sm text-justify">
+                <p className="text-[#0e346b]">
                   <span className="font-medium">Scholarship Note:</span> This
-                  payment has been tagged as an educational scholarship
-                  transfer. The recipient institution will be notified.
+                  payment has been tagged as an scholarship transfer. The
+                  recipient institution will be notified.
                 </p>
               </div>
             </div>
@@ -286,12 +282,9 @@ export function SuccessModal({
               <div className="flex gap-2 flex-1 sm:flex-none">
                 <Button
                   variant="outline"
-                  className="flex-1 border-blue-600 text-blue-600"
+                  className="flex-1 border-[#0e346b] text-white bg-[#0e746b] duration-300 hover:text-[#0e746b]"
                 >
                   <Download className="mr-2 h-4 w-4" /> Save
-                </Button>
-                <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
-                  <Share2 className="mr-2 h-4 w-4" /> Share
                 </Button>
               </div>
             </DialogFooter>
