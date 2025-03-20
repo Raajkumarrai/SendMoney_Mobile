@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -60,10 +62,10 @@ export default function SendMoneyPage() {
   const [cities, setCities] = useState<string[]>([]);
 
   const [formDataa, setFormDataa] = useState({
-    receiverCountry: "",
-    receiverState: "",
-    receiverCity: "",
-    receiverContact: "",
+    receiverCountry: formData.receiverCountry,
+    receiverState: formData.receiverState,
+    receiverCity: formData.receiverCity,
+    receiverContact: formData.receiverContact,
   });
 
   const [errorss] = useState({
@@ -73,6 +75,7 @@ export default function SendMoneyPage() {
 
   const handleCountryChange = (country: string) => {
     handleInputChange("receiverCountry", country);
+    setFormDataa((prev) => ({ ...prev, receiverCountry: country }));
     setStates([]);
     setCities([]);
     // Logic to fetch states based on country
@@ -99,6 +102,7 @@ export default function SendMoneyPage() {
 
   const handleStateChange = (state: string) => {
     handleInputChange("receiverState", state);
+    setFormDataa((prev) => ({ ...prev, receiverState: state }));
     // Logic to fetch cities based on selected state
     if (state === "New York") {
       setCities(["New York City", "Buffalo", "Rochester"]);
@@ -115,6 +119,7 @@ export default function SendMoneyPage() {
     }
     // Clear city selection when state changes
     setFormDataa((prev) => ({ ...prev, receiverCity: "" }));
+    handleInputChange("receiverCity", "");
   };
 
   // Generate a consistent 10-digit reference number
@@ -766,15 +771,19 @@ export default function SendMoneyPage() {
                                   Receiver City
                                 </Label>
                                 <Select
-                                  onValueChange={(value) =>
-                                    handleInputChange("receiverCity", value)
-                                  }
-                                  value={formDataa.receiverCity}
+                                  onValueChange={(value) => {
+                                    handleInputChange("receiverCity", value);
+                                    setFormDataa((prev) => ({
+                                      ...prev,
+                                      receiverCity: value,
+                                    }));
+                                  }}
+                                  value={formData.receiverCity}
                                 >
                                   <SelectTrigger
                                     id="receiver-city"
                                     className={`border-emerald-200 focus:ring-emerald-500 ${
-                                      errorss.receiverCity
+                                      errors.receiverCity
                                         ? "border-red-500"
                                         : ""
                                     }`}
@@ -789,9 +798,9 @@ export default function SendMoneyPage() {
                                     ))}
                                   </SelectContent>
                                 </Select>
-                                {errorss.receiverCity && (
+                                {errors.receiverCity && (
                                   <p className="text-red-500 text-xs mt-1">
-                                    {errorss.receiverCity}
+                                    {errors.receiverCity}
                                   </p>
                                 )}
                               </div>

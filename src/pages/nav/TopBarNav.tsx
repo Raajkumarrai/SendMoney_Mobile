@@ -68,7 +68,7 @@ const TopBarNav = () => {
               to={path}
               className={`transition duration-300 px-2 md:px-1 py-1 text-white ${
                 location.pathname === path
-                  ? "underline"
+                  ? "relative after:content-[''] after:absolute after:left-1/4 after:bottom-0 after:w-1/2 after:h-[2px] after:bg-white"
                   : "hover:text-black duration-500"
               }`}
             >
