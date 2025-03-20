@@ -1,4 +1,7 @@
+"use client";
+
 import type React from "react";
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,10 +22,16 @@ import {
   Copy,
   Download,
   RefreshCw,
+  Check,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface TransactionDetails {
   id: string;
@@ -41,6 +50,8 @@ interface TransactionDetails {
   };
   type: "vip" | "scholarship";
   paymentMethod: string;
+  transactionData: TransactionDetails;
+  onClose: () => void;
 }
 
 const TrackTransferPage = () => {
@@ -53,6 +64,7 @@ const TrackTransferPage = () => {
   const [savedTransactions, setSavedTransactions] = useState<
     Record<string, TransactionDetails>
   >({});
+  const [isCopied, setIsCopied] = useState(false);
   const { toast } = useToast();
 
   // Load saved transactions from localStorage on component mount
@@ -107,12 +119,20 @@ const TrackTransferPage = () => {
   };
 
   const copyReferenceToClipboard = () => {
-    if (transaction) {
-      navigator.clipboard.writeText(transaction.id);
-      toast({
-        alert: "Reference copied",
-        description: "Transaction reference has been copied to clipboard",
-      });
+    if (transaction?.id) {
+      navigator.clipboard
+        .writeText(transaction.id)
+        .then(() => {
+          setIsCopied(true);
+          toast({
+            title: "Reference copied",
+            description: "Transaction reference has been copied to clipboard",
+          });
+          setTimeout(() => setIsCopied(false), 2000); // Hide popover after 2 seconds
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+        });
     }
   };
 
@@ -139,6 +159,128 @@ const TrackTransferPage = () => {
         return <AlertCircle className="h-5 w-5 text-red-600" />;
       default:
         return null;
+    }
+  };
+  const formatDate = () => {
+    const date = new Date();
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const generateReceiptContent = () => {
+    if (!transaction) return;
+
+    const formattedDate = formatDate();
+    const { type, amount, fee, sender, receiver, paymentMethod } = transaction;
+
+    const title =
+      type === "vip" ? "VIP Transfer Receipt" : "Scholarship Payment Receipt";
+    const amountLabel = type === "vip" ? "Amount Sent" : "Scholarship Amount";
+    const feeLabel = type === "vip" ? "Transfer Fee" : "Processing Fee";
+    const recipientLabel = type === "vip" ? "Receiver" : "Recipient";
+
+    return {
+      title,
+      amountLabel,
+      feeLabel,
+      recipientLabel,
+      formattedDate,
+      amount: amount.toFixed(2),
+      fee: fee.toFixed(2),
+      total: (amount + fee).toFixed(2),
+      senderCountry: sender.country || "Not specified",
+      receiverCountry: receiver.country || "Not specified",
+      receiverName: receiver.name || "Not specified",
+      receiverAccount: receiver.accountNumber || "Not specified",
+      paymentMethod: paymentMethod || "Not specified",
+    };
+  };
+  const handleDownload = () => {
+    const receipt = generateReceiptContent();
+    if (!receipt) return; // Return if there's no receipt content
+
+    const printWindow = window.open("", "_blank");
+
+    if (printWindow) {
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>${receipt.title}</title>
+            <style>
+              body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+              h1 { color: #0e746b; }
+              .receipt { max-width: 600px; margin: 0 auto; }
+              .header { text-align: center; margin-bottom: 20px; }
+              .details { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+              .row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+              .label { font-weight: bold; color: #555; }
+              .footer { margin-top: 30px; text-align: center; font-size: 14px; color: #777; }
+            </style>
+          </head>
+          <body>
+            <div class="receipt">
+              <div class="header">
+                <h1>${receipt.title}</h1>
+                <p>Transaction ID: ${transaction?.id}</p>
+                <p>Date: ${receipt.formattedDate}</p>
+              </div>
+              <div class="details">
+                <div class="row">
+                  <span class="label">${receipt.amountLabel}:</span>
+                  <span>$${receipt.amount}</span>
+                </div>
+                <div class="row">
+                  <span class="label">${receipt.feeLabel}:</span>
+                  <span>$${receipt.fee}</span>
+                </div>
+                <div class="row">
+                  <span class="label">Total:</span>
+                  <span>$${receipt.total}</span>
+                </div>
+                <div class="row">
+                  <span class="label">From Country:</span>
+                  <span>${receipt.senderCountry}</span>
+                </div>
+                <div class="row">
+                  <span class="label">To Country:</span>
+                  <span>${receipt.receiverCountry}</span>
+                </div>
+                <div class="row">
+                  <span class="label">${receipt.recipientLabel} Name:</span>
+                  <span>${receipt.receiverName}</span>
+                </div>
+                <div class="row">
+                  <span class="label">${receipt.recipientLabel} Account:</span>
+                  <span>${receipt.receiverAccount}</span>
+                </div>
+                <div class="row">
+                  <span class="label">Payment Method:</span>
+                  <span>${receipt.paymentMethod}</span>
+                </div>
+              </div>
+              <div class="footer">
+                <p>Thank you for using our service!</p>
+              </div>
+            </div>
+            <script>
+              window.onload = function() { window.print(); }
+            </script>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    } else {
+      toast({
+        title: "Print failed",
+        description:
+          "Unable to open print window. Please check your browser settings.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -253,17 +395,30 @@ const TrackTransferPage = () => {
                   }`}
                 >
                   Reference: {transaction.id}
-                  <button
-                    onClick={copyReferenceToClipboard}
-                    className="ml-2 inline-flex items-center hover:text-white"
-                  >
-                    <Copy className="h-3 w-3" />
-                  </button>
+                  <Popover open={isCopied}>
+                    <PopoverTrigger asChild>
+                      <button
+                        onClick={copyReferenceToClipboard}
+                        className="ml-2 inline-flex items-center hover:text-white"
+                        aria-label="Copy reference number"
+                      >
+                        {isCopied ? (
+                          <Check className="h-3 w-3" />
+                        ) : (
+                          <Copy className="h-3 w-3" />
+                        )}
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-2" side="top">
+                      <p className="text-xs">Copied!</p>
+                    </PopoverContent>
+                  </Popover>
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* Sender Information */}
                     <div
                       className={`p-4 rounded-lg ${
                         transaction.type === "vip"
@@ -298,6 +453,7 @@ const TrackTransferPage = () => {
                       </div>
                     </div>
 
+                    {/* Receiver Information */}
                     <div
                       className={`p-4 rounded-lg ${
                         transaction.type === "vip"
@@ -343,6 +499,7 @@ const TrackTransferPage = () => {
                     </div>
                   </div>
 
+                  {/* Transaction Details */}
                   <div
                     className={`p-4 rounded-lg ${
                       transaction.type === "vip"
@@ -359,7 +516,7 @@ const TrackTransferPage = () => {
                     >
                       Transaction Details
                     </h3>
-                    <div className="grid grid-cols-2 gap-x-7 gap-y-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-2">
                       <div className="flex justify-between">
                         <span className="text-gray-500 text-sm">Amount:</span>
                         <span className="font-medium text-sm">
@@ -401,6 +558,7 @@ const TrackTransferPage = () => {
                     </div>
                   </div>
 
+                  {/* Status Messages */}
                   {transaction.status === "pending" && (
                     <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-100 text-sm">
                       <p className="text-yellow-800 flex items-center">
@@ -438,16 +596,24 @@ const TrackTransferPage = () => {
                   )}
                 </div>
               </CardContent>
-              <CardFooter className="bg-gray-50 px-6 py-4 flex justify-between">
-                <Button variant="outline" onClick={() => setTransaction(null)}>
+
+              <CardFooter className="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setTransaction(null), setReference("");
+                  }} // Clear the reference input field}}
+                  className="w-full sm:w-auto"
+                >
                   Track Another
                 </Button>
                 <Button
+                  onClick={handleDownload}
                   className={`${
                     transaction.type === "vip"
                       ? "bg-[#0e746b] hover:bg-white hover:text-[#0e746b] border duration-300"
                       : "bg-blue-600 hover:bg-blue-700"
-                  } text-white`}
+                  } text-white w-full sm:w-auto`}
                 >
                   <Download className="mr-2 h-4 w-4" /> Download Receipt
                 </Button>
