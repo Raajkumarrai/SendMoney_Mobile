@@ -24,17 +24,48 @@ import {
   Wallet,
   AlertCircle,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SuccessModal } from "../success/SuccessModel";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+// Define available countries
+const COUNTRIES = [
+  "United States",
+  "Canada",
+  "United Kingdom",
+  "Congo",
+  "Nepal",
+  "India",
+  "China",
+  "Korea",
+  "Russia",
+];
+
+// Define form data interface
+interface FormData {
+  senderCountry: string;
+  receiverCountry: string;
+  mobileNumber: string;
+  amount: string;
+  accountNumber: string;
+  swiftCode: string;
+  receiverAddress: string;
+  receiverState: string;
+  receiverCity: string;
+  receiverContact: string;
+  receiverAccountNumber: string;
+  receiverSwiftCode: string;
+  receiverName: string;
+}
+
 export default function SendMoneyPage() {
+  // Form state
   const [receiverMoney, setReceiverMoney] = useState("vip");
-  const [showSuccess, setShowSuccess] = React.useState(false);
-  const [paymentMethod, setPaymentMethod] = React.useState("account");
-  const [currentStep, setCurrentStep] = React.useState(1);
-  const [errors, setErrors] = React.useState<Record<string, string>>({});
-  const [formData, setFormData] = React.useState({
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("account");
+  const [currentStep, setCurrentStep] = useState(1);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState<FormData>({
     senderCountry: "",
     receiverCountry: "",
     mobileNumber: "",
@@ -50,43 +81,50 @@ export default function SendMoneyPage() {
     receiverName: "",
   });
 
-  // for country Selection
-  const [countries] = useState<string[]>([
-    "United States",
-    "Canada",
-    "United Kingdom",
-    "Congo",
-    "Nepal",
-  ]);
+  // Location selection state
   const [states, setStates] = useState<string[]>([]);
   const [cities, setCities] = useState<string[]>([]);
 
-  const [formDataa, setFormDataa] = useState({
-    receiverCountry: formData.receiverCountry,
-    receiverState: formData.receiverState,
-    receiverCity: formData.receiverCity,
-    receiverContact: formData.receiverContact,
-  });
+  // Generate a consistent 10-digit reference number
+  const generateReferenceNumber = () => {
+    const timestamp = Date.now().toString().slice(-4);
+    const randomPart = Math.floor(100000 + Math.random() * 900000);
+    return `${timestamp}${randomPart}`;
+  };
 
-  const [errorss] = useState({
-    receiverCity: "",
-    receiverContact: "",
-  });
+  const [referenceNumber] = useState(generateReferenceNumber());
 
-  const handleCountryChange = (country: string) => {
-    handleInputChange("receiverCountry", country);
-    setFormDataa((prev) => ({ ...prev, receiverCountry: country }));
-    setStates([]);
-    setCities([]);
-    // Logic to fetch states based on country
+  // Load saved form data if available
+  useEffect(() => {
+    const savedFormData = localStorage.getItem("sendMoneyFormData");
+    if (savedFormData) {
+      const parsedData = JSON.parse(savedFormData);
+      setFormData(parsedData);
+
+      // If receiver country is set, load states
+      if (parsedData.receiverCountry) {
+        loadStatesForCountry(parsedData.receiverCountry);
+
+        // If receiver state is set, load cities
+        if (parsedData.receiverState) {
+          loadCitiesForState(parsedData.receiverState);
+        }
+      }
+    }
+  }, []);
+
+  // Load states based on selected country
+  const loadStatesForCountry = (country: string) => {
+    let newStates: string[] = [];
+
     if (country === "United States") {
-      setStates(["New York", "California", "Texas", "Florida"]);
+      newStates = ["New York", "California", "Texas", "Florida"];
     } else if (country === "Canada") {
-      setStates(["Ontario", "Quebec", "British Columbia"]);
+      newStates = ["Ontario", "Quebec", "British Columbia"];
     } else if (country === "United Kingdom") {
-      setStates(["England", "Scotland", "Wales"]);
+      newStates = ["England", "Scotland", "Wales"];
     } else if (country === "Nepal") {
-      setStates([
+      newStates = [
         "Province 1",
         "Province 2",
         "Bagmati",
@@ -94,53 +132,90 @@ export default function SendMoneyPage() {
         "Lumbini",
         "Karnali",
         "Sudurpashchim",
-      ]);
+      ];
     }
-    // Clear cities when country changes
+
+    setStates(newStates);
     setCities([]);
   };
 
-  const handleStateChange = (state: string) => {
-    handleInputChange("receiverState", state);
-    setFormDataa((prev) => ({ ...prev, receiverState: state }));
-    // Logic to fetch cities based on selected state
+  // Load cities based on selected state
+  const loadCitiesForState = (state: string) => {
+    let newCities: string[] = [];
+
     if (state === "New York") {
-      setCities(["New York City", "Buffalo", "Rochester"]);
+      newCities = ["New York City", "Buffalo", "Rochester"];
     } else if (state === "California") {
-      setCities(["Los Angeles", "San Francisco", "San Diego"]);
+      newCities = ["Los Angeles", "San Francisco", "San Diego"];
     } else if (state === "Texas") {
-      setCities(["Houston", "Dallas", "Austin"]);
+      newCities = ["Houston", "Dallas", "Austin"];
     } else if (state === "Province 1") {
-      setCities(["Ilam", "Jhapa", "Sunsari"]);
+      newCities = ["Ilam", "Jhapa", "Sunsari"];
     } else if (state === "Bagmati") {
-      setCities(["Kathmandu", "Bhaktapur", "Lalitpur"]);
+      newCities = ["Kathmandu", "Bhaktapur", "Lalitpur"];
     } else if (state === "Gandaki") {
-      setCities(["Pokhara", "Kaski", "Gandaki"]);
+      newCities = ["Pokhara", "Kaski", "Gandaki"];
     }
-    // Clear city selection when state changes
-    setFormDataa((prev) => ({ ...prev, receiverCity: "" }));
-    handleInputChange("receiverCity", "");
+
+    setCities(newCities);
   };
 
-  // Generate a consistent 10-digit reference number
-  const generateReferenceNumber = () => {
-    // Create a timestamp-based prefix (4 digits)
-    const timestamp = Date.now().toString().slice(-4);
+  // Handle country change
+  const handleCountryChange = (country: string) => {
+    const updatedFormData = {
+      ...formData,
+      receiverCountry: country,
+      receiverState: "", // Reset state when country changes
+      receiverCity: "", // Reset city when country changes
+    };
 
-    // Create a random 6-digit number for the rest
-    const randomPart = Math.floor(100000 + Math.random() * 900000);
+    setFormData(updatedFormData);
+    localStorage.setItem("sendMoneyFormData", JSON.stringify(updatedFormData));
 
-    // Combine to create a 10-digit reference
-    return `${timestamp}${randomPart}`;
+    // Clear errors
+    if (errors.receiverCountry) {
+      setErrors({
+        ...errors,
+        receiverCountry: "",
+      });
+    }
+
+    loadStatesForCountry(country);
   };
 
-  const [referenceNumber] = React.useState(generateReferenceNumber());
+  // Handle state change
+  const handleStateChange = (state: string) => {
+    const updatedFormData = {
+      ...formData,
+      receiverState: state,
+      receiverCity: "", // Reset city when state changes
+    };
 
+    setFormData(updatedFormData);
+    localStorage.setItem("sendMoneyFormData", JSON.stringify(updatedFormData));
+
+    // Clear errors
+    if (errors.receiverState) {
+      setErrors({
+        ...errors,
+        receiverState: "",
+      });
+    }
+
+    loadCitiesForState(state);
+  };
+
+  // Handle form input changes
   const handleInputChange = (field: string, value: string) => {
-    setFormData({
+    const updatedFormData = {
       ...formData,
       [field]: value,
-    });
+    };
+
+    setFormData(updatedFormData);
+
+    // Save form data to localStorage
+    localStorage.setItem("sendMoneyFormData", JSON.stringify(updatedFormData));
 
     // Clear error for this field when user types
     if (errors[field]) {
@@ -151,6 +226,7 @@ export default function SendMoneyPage() {
     }
   };
 
+  // Validation functions
   const validateStep1 = () => {
     const newErrors: Record<string, string> = {};
 
@@ -226,6 +302,7 @@ export default function SendMoneyPage() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Form submission handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -250,7 +327,7 @@ export default function SendMoneyPage() {
         paymentMethod: paymentMethod,
       };
 
-      // Get existing transactions or initialize empty array
+      // Get existing transactions or initialize empty object
       const existingTransactions = JSON.parse(
         localStorage.getItem("transactions") || "{}"
       );
@@ -268,6 +345,7 @@ export default function SendMoneyPage() {
     }
   };
 
+  // Navigation handlers
   const handleNextStep = () => {
     if (currentStep === 1 && validateStep1()) {
       setCurrentStep(2);
@@ -280,7 +358,34 @@ export default function SendMoneyPage() {
     setCurrentStep(currentStep - 1);
   };
 
-  // Calculate transaction data from form inputs
+  // Success modal close handler
+  const handleCloseSuccess = () => {
+    setShowSuccess(false);
+    // Reset form data
+    const emptyFormData = {
+      senderCountry: "",
+      receiverCountry: "",
+      mobileNumber: "",
+      amount: "",
+      accountNumber: "",
+      swiftCode: "",
+      receiverAddress: "",
+      receiverState: "",
+      receiverCity: "",
+      receiverContact: "",
+      receiverAccountNumber: "",
+      receiverSwiftCode: "",
+      receiverName: "",
+    };
+    setFormData(emptyFormData);
+    setCurrentStep(1);
+    setStates([]);
+    setCities([]);
+    // Clear form data from localStorage
+    localStorage.removeItem("sendMoneyFormData");
+  };
+
+  // Calculate transaction data for success modal
   const transactionData = {
     transferAmount: formData.amount ? Number.parseFloat(formData.amount) : 0,
     transferFee: 0.99,
@@ -293,6 +398,21 @@ export default function SendMoneyPage() {
     receiverContact: formData.receiverContact,
     senderCountry: formData.senderCountry,
     paymentMethod: paymentMethod,
+  };
+
+  // Render error alert if there are validation errors
+  const renderErrorAlert = () => {
+    if (Object.keys(errors).length > 0) {
+      return (
+        <Alert variant="destructive" className="mb-4">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>
+            Please fix the errors below to continue.
+          </AlertDescription>
+        </Alert>
+      );
+    }
+    return null;
   };
 
   return (
@@ -311,64 +431,41 @@ export default function SendMoneyPage() {
           {/* Progress Steps */}
           <div className="mb-8">
             <div className="flex items-center justify-between max-w-md mx-auto">
-              <div
-                className={`flex flex-col items-center ${
-                  currentStep >= 1 ? "text-emerald-600" : "text-gray-400"
-                }`}
-              >
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
-                    currentStep >= 1
-                      ? "bg-emerald-600 text-white"
-                      : "bg-gray-200"
-                  }`}
-                >
-                  <Globe className="h-5 w-5" />
-                </div>
-                <span className="text-xs">Details</span>
-              </div>
-              <div
-                className={`h-1 flex-1 mx-2 ${
-                  currentStep >= 2 ? "bg-emerald-600" : "bg-gray-200"
-                }`}
-              ></div>
-              <div
-                className={`flex flex-col items-center ${
-                  currentStep >= 2 ? "text-emerald-600" : "text-gray-400"
-                }`}
-              >
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
-                    currentStep >= 2
-                      ? "bg-emerald-600 text-white"
-                      : "bg-gray-200"
-                  }`}
-                >
-                  <Wallet className="h-5 w-5" />
-                </div>
-                <span className="text-xs">Payment</span>
-              </div>
-              <div
-                className={`h-1 flex-1 mx-2 ${
-                  currentStep >= 3 ? "bg-emerald-600" : "bg-gray-200"
-                }`}
-              ></div>
-              <div
-                className={`flex flex-col items-center ${
-                  currentStep >= 3 ? "text-emerald-600" : "text-gray-400"
-                }`}
-              >
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
-                    currentStep >= 3
-                      ? "bg-emerald-600 text-white"
-                      : "bg-gray-200"
-                  }`}
-                >
-                  <User className="h-5 w-5" />
-                </div>
-                <span className="text-xs">Receiver</span>
-              </div>
+              {[
+                { step: 1, icon: Globe, label: "Details" },
+                { step: 2, icon: Wallet, label: "Payment" },
+                { step: 3, icon: User, label: "Receiver" },
+              ].map((item, index, arr) => (
+                <React.Fragment key={item.step}>
+                  <div
+                    className={`flex flex-col items-center ${
+                      currentStep >= item.step
+                        ? "text-emerald-600"
+                        : "text-gray-400"
+                    }`}
+                  >
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 ${
+                        currentStep >= item.step
+                          ? "bg-emerald-600 text-white"
+                          : "bg-gray-200"
+                      }`}
+                    >
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <span className="text-xs">{item.label}</span>
+                  </div>
+                  {index < arr.length - 1 && (
+                    <div
+                      className={`h-1 flex-1 mx-2 ${
+                        currentStep > item.step
+                          ? "bg-emerald-600"
+                          : "bg-gray-200"
+                      }`}
+                    ></div>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
 
@@ -385,14 +482,7 @@ export default function SendMoneyPage() {
                       </h2>
                     </div>
 
-                    {Object.keys(errors).length > 0 && (
-                      <Alert variant="destructive" className="mb-4">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertDescription>
-                          Please fix the errors below to continue.
-                        </AlertDescription>
-                      </Alert>
-                    )}
+                    {renderErrorAlert()}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
@@ -418,14 +508,11 @@ export default function SendMoneyPage() {
                               <SelectValue placeholder="Select your country" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="Nepal">Nepal</SelectItem>
-                              <SelectItem value="United Kingdom">
-                                United Kingdom
-                              </SelectItem>
-                              <SelectItem value="United States">
-                                United States
-                              </SelectItem>
-                              <SelectItem value="India">India</SelectItem>
+                              {COUNTRIES.map((country) => (
+                                <SelectItem key={country} value={country}>
+                                  {country}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                           <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-emerald-600" />
@@ -446,9 +533,7 @@ export default function SendMoneyPage() {
                         </Label>
                         <div className="relative">
                           <Select
-                            onValueChange={(value) =>
-                              handleInputChange("receiverCountry", value)
-                            }
+                            onValueChange={handleCountryChange}
                             value={formData.receiverCountry}
                           >
                             <SelectTrigger
@@ -460,17 +545,11 @@ export default function SendMoneyPage() {
                               <SelectValue placeholder="Select receiver country" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="Nepal">Nepal</SelectItem>
-                              <SelectItem value="United Kingdom">
-                                United Kingdom
-                              </SelectItem>
-                              <SelectItem value="United States">
-                                United States
-                              </SelectItem>
-                              <SelectItem value="India">India</SelectItem>
-                              <SelectItem value="China">China</SelectItem>
-                              <SelectItem value="Korea">Korea</SelectItem>
-                              <SelectItem value="Russia">Russia</SelectItem>
+                              {COUNTRIES.map((country) => (
+                                <SelectItem key={country} value={country}>
+                                  {country}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                           <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-emerald-600" />
@@ -544,9 +623,7 @@ export default function SendMoneyPage() {
                       </Label>
                       <Select
                         value={receiverMoney}
-                        onValueChange={(value) => {
-                          setReceiverMoney(value);
-                        }}
+                        onValueChange={setReceiverMoney}
                       >
                         <SelectTrigger className="border-emerald-200 focus:ring-emerald-500">
                           <SelectValue placeholder="Select option" />
@@ -580,14 +657,7 @@ export default function SendMoneyPage() {
                       <h2 className="text-xl font-semibold">Payment Method</h2>
                     </div>
 
-                    {Object.keys(errors).length > 0 && (
-                      <Alert variant="destructive" className="mb-4">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertDescription>
-                          Please fix the errors below to continue.
-                        </AlertDescription>
-                      </Alert>
-                    )}
+                    {renderErrorAlert()}
 
                     <div className="space-y-4">
                       <Label className="text-emerald-700">
@@ -703,36 +773,8 @@ export default function SendMoneyPage() {
                           </div>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            {/* Country Select */}
-                            <div className="space-y-2">
-                              <Label
-                                htmlFor="receiver-country-select"
-                                className="text-emerald-700"
-                              >
-                                Receiver Country
-                              </Label>
-                              <Select
-                                onValueChange={handleCountryChange}
-                                value={formDataa.receiverCountry}
-                              >
-                                <SelectTrigger
-                                  id="receiver-country-select"
-                                  className="border-emerald-200 focus:ring-emerald-500"
-                                >
-                                  <SelectValue placeholder="Select country" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {countries.map((country) => (
-                                    <SelectItem key={country} value={country}>
-                                      {country}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </div>
-
                             {/* State Select (Visible only when a country is selected) */}
-                            {formDataa.receiverCountry && (
+                            {formData.receiverCountry && (
                               <div className="space-y-2">
                                 <Label
                                   htmlFor="receiver-state"
@@ -742,7 +784,7 @@ export default function SendMoneyPage() {
                                 </Label>
                                 <Select
                                   onValueChange={handleStateChange}
-                                  value={formDataa.receiverState}
+                                  value={formData.receiverState}
                                 >
                                   <SelectTrigger
                                     id="receiver-state"
@@ -762,7 +804,7 @@ export default function SendMoneyPage() {
                             )}
 
                             {/* City Select (Visible only when a state is selected) */}
-                            {formDataa.receiverState && (
+                            {formData.receiverState && (
                               <div className="space-y-2">
                                 <Label
                                   htmlFor="receiver-city"
@@ -771,13 +813,9 @@ export default function SendMoneyPage() {
                                   Receiver City
                                 </Label>
                                 <Select
-                                  onValueChange={(value) => {
-                                    handleInputChange("receiverCity", value);
-                                    setFormDataa((prev) => ({
-                                      ...prev,
-                                      receiverCity: value,
-                                    }));
-                                  }}
+                                  onValueChange={(value) =>
+                                    handleInputChange("receiverCity", value)
+                                  }
                                   value={formData.receiverCity}
                                 >
                                   <SelectTrigger
@@ -819,9 +857,7 @@ export default function SendMoneyPage() {
                                 type="tel"
                                 placeholder="Contact number"
                                 className={`border-emerald-200 focus:ring-emerald-500 ${
-                                  errorss.receiverContact
-                                    ? "border-red-500"
-                                    : ""
+                                  errors.receiverContact ? "border-red-500" : ""
                                 }`}
                                 value={formData.receiverContact}
                                 onChange={(e) =>
@@ -833,7 +869,7 @@ export default function SendMoneyPage() {
                               />
                               {errors.receiverContact && (
                                 <p className="text-red-500 text-xs mt-1">
-                                  {errorss.receiverContact}
+                                  {errors.receiverContact}
                                 </p>
                               )}
                             </div>
@@ -872,14 +908,7 @@ export default function SendMoneyPage() {
                       </h2>
                     </div>
 
-                    {Object.keys(errors).length > 0 && (
-                      <Alert variant="destructive" className="mb-4">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertDescription>
-                          Please fix the errors below to complete your transfer.
-                        </AlertDescription>
-                      </Alert>
-                    )}
+                    {renderErrorAlert()}
 
                     <div className="space-y-4">
                       <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-100 mb-6">
@@ -1052,7 +1081,7 @@ export default function SendMoneyPage() {
 
       {showSuccess && (
         <SuccessModal
-          onClose={() => setShowSuccess(false)}
+          onClose={handleCloseSuccess}
           transactionData={transactionData}
           variant={receiverMoney as "vip" | "scholarship"}
         />
