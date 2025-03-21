@@ -15,8 +15,8 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Signin />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Signin />} />
+        <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/track" element={<Track />} />
         <Route path="/signup" element={<Signup />} />

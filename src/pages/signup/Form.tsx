@@ -59,7 +59,12 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="min-h-screen w-full flex justify-center items-center bg-gray-300 p-4">
+    <div
+      className="min-h-screen w-full flex justify-center items-center p-4"
+      style={{
+        background: "linear-gradient(120deg, #0e746b, #2ecc71, #27ae60)",
+      }}
+    >
       {isMobile ? (
         // Mobile layout
         <div className="w-full max-w-sm rounded-3xl overflow-hidden flex flex-col bg-white shadow-xl mb-8">
@@ -237,7 +242,7 @@ export default function RegisterForm() {
 
               <p className="text-center text-xs mt-2">
                 Already have an Account?{" "}
-                <Link to="/" className="text-[#0e746b] hover:underline">
+                <Link to="/login" className="text-[#0e746b] hover:underline">
                   Sign In
                 </Link>
               </p>
@@ -260,7 +265,7 @@ export default function RegisterForm() {
             <p className="text-sm mb-1">To become part of our community</p>
             <p className="text-sm mb-8">please create your account</p>
             <div className="border border-white rounded-full py-2 px-4 mt-auto mb-4 text-sm hover:bg-[#0d846c] hover:text-white transition-colors flex justify-center w-full">
-              <Link className="w-full flex justify-center" to="/">
+              <Link className="w-full flex justify-center" to="/login">
                 LOGIN
               </Link>
             </div>
@@ -443,7 +448,7 @@ export default function RegisterForm() {
 
               <p className="text-center text-sm mt-2">
                 Already have an Account?{" "}
-                <Link to="/" className="text-[#0e746b] hover:underline">
+                <Link to="/login" className="text-[#0e746b] hover:underline">
                   Sign In
                 </Link>
               </p>

@@ -34,7 +34,12 @@ export default function Form() {
 
   // Desktop layout or mobile login screen
   return (
-    <div className="h-screen w-full flex justify-center items-center bg-gray-300 p-4">
+    <div
+      className="h-screen w-full flex justify-center items-center text-white"
+      style={{
+        background: "linear-gradient(120deg, #0e746b, #2ecc71, #27ae60)",
+      }}
+    >
       {/* Desktop and mobile have different layouts */}
       {isMobile ? (
         <div className="w-full max-w-sm rounded-3xl overflow-hidden flex flex-col bg-white shadow-xl">
@@ -162,7 +167,7 @@ export default function Form() {
                 LOG IN
               </Button>
 
-              <p className="text-center text-xs mt-2">
+              <p className="text-center text-xs mt-2 text-black">
                 Don't have an account?{" "}
                 <Link to="/signup" className="text-[#0e746b] hover:underline">
                   sign up
@@ -312,7 +317,7 @@ export default function Form() {
                 LOG IN
               </Button>
 
-              <p className="text-center text-sm mt-4">
+              <p className="text-center text-sm mt-4 text-black">
                 Don't have an account?{" "}
                 <Link to="/signup" className="text-[#0e746b] hover:underline">
                   Sign up

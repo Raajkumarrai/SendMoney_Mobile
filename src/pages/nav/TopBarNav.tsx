@@ -30,7 +30,7 @@ const TopBarNav = () => {
   }, [isOpen]);
 
   const navLinks = [
-    { path: "/home", label: "Home", icon: <Home className="h-5 w-5" /> },
+    { path: "/", label: "Home", icon: <Home className="h-5 w-5" /> },
     {
       path: "/sendMoney",
       label: "Send Money",
@@ -87,7 +87,7 @@ const TopBarNav = () => {
           Sign-up
         </Link>
         <Link
-          to="/"
+          to="/login"
           className="text-[#0e746b] bg-white px-2 py-1 rounded-lg hover:bg-[#0e746b] hover:text-white duration-300 text-sm lg:text-base"
         >
           Login
@@ -162,7 +162,7 @@ const TopBarNav = () => {
                 Sign-up
               </Link>
               <Link
-                to="/"
+                to="/login"
                 onClick={() => setIsOpen(false)}
                 className="flex-1 text-center text-[#0e746b] bg-white border border-[#0e746b] px-3 py-2 rounded-lg hover:bg-[#0e746b] hover:text-white duration-300 text-sm"
               >
