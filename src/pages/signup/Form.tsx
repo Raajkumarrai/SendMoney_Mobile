@@ -59,7 +59,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="min-h-screen w-full flex justify-center items-center bg-black/95 p-4">
+    <div className="min-h-screen w-full flex justify-center items-center bg-gray-300 p-4">
       {isMobile ? (
         // Mobile layout
         <div className="w-full max-w-sm rounded-3xl overflow-hidden flex flex-col bg-white shadow-xl mb-8">
