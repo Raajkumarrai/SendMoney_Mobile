@@ -37,7 +37,7 @@ export default function Form() {
     <div
       className="h-screen w-full flex justify-center items-center text-white"
       style={{
-        background: "linear-gradient(120deg, #0e746b, #2ecc71, #27ae60)",
+        background: "linear-gradient(to bottom, #b3e5dc, #85c9b9, #5db39a)",
       }}
     >
       {/* Desktop and mobile have different layouts */}
